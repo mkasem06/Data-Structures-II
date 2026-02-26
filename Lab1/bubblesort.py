@@ -1,7 +1,7 @@
 import time
 import random
 
-# Functions
+# Bubble sort
 def bubbleSort(arr):
     swapped = False
     n = len(arr)
@@ -22,11 +22,23 @@ def selectionSort(arr):
               min_idx = j
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
 
+       
+# Insertion sort
+def insertionSort(arr):
+    n = len(arr)
+    for i in range(1, n):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j+1] = arr[j]
+            j = j -1
+        arr[j + 1] = key
+    
 elements = int(input("Enter number of elements: "))
 
 while elements < 10000:
     elements = int(input("Value must be >= 10000\nEnter number of elements: "))
-arr = [random.randint(1, 100) for _ in range(elements)]
+arr = [random.randint(1, 999999) for _ in range(elements)]
 
 
 while True:
@@ -36,17 +48,17 @@ while True:
     match choice:
         case 1:
             tstart = time.time()
-            bubbleSort(arr)
+            bubbleSort(arr.copy())
             tend = time.time()
             print(f"Time taken to sort {elements} elements using bubble sort is {tend - tstart:.4f} seconds")
         case 2:
             tstart = time.time()
-            selectionSort(arr)
+            selectionSort(arr.copy())
             tend = time.time()
             print(f"Time taken to sort {elements} elements using selection sort is {tend - tstart:.4f} seconds")
         case 3:
             tstart = time.time()
-            insertionSort(arr)
+            insertionSort(arr.copy())
             tend = time.time()
             print(f"Time taken to sort {elements} elements using insertion sort is {tend - tstart:.4f} seconds")
 
