@@ -12,6 +12,7 @@ def bubbleSort(arr):
                 swapped = True
         if swapped == False:
             break
+
 # Selection Sort
 def selectionSort(arr):
     n = len(arr)
@@ -22,7 +23,6 @@ def selectionSort(arr):
               min_idx = j
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
 
-       
 # Insertion sort
 def insertionSort(arr):
     n = len(arr)
@@ -40,7 +40,6 @@ while elements < 10000:
     elements = int(input("Value must be >= 10000\nEnter number of elements: "))
 arr = [random.randint(1, 999999) for _ in range(elements)]
 
-
 while True:
     choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\nCtrl + C to exit\nEnter the sorting algorithm you want: "))
     while choice < 1 or choice > 3:
@@ -50,23 +49,14 @@ while True:
             tstart = time.time()
             bubbleSort(arr.copy())
             tend = time.time()
-            print(f"Time taken to sort {elements} elements using bubble sort is {tend - tstart:.4f} seconds")
+            print(f"Time taken to sort {elements} elements using bubble sort is {1000*(tend - tstart):.4f} ms")
         case 2:
             tstart = time.time()
             selectionSort(arr.copy())
             tend = time.time()
-            print(f"Time taken to sort {elements} elements using selection sort is {tend - tstart:.4f} seconds")
+            print(f"Time taken to sort {elements} elements using selection sort is {1000*(tend - tstart):.4f} ms")
         case 3:
             tstart = time.time()
             insertionSort(arr.copy())
             tend = time.time()
-            print(f"Time taken to sort {elements} elements using insertion sort is {tend - tstart:.4f} seconds")
-
-
-
-
-
-
-
-
-
+            print(f"Time taken to sort {elements} elements using insertion sort is {1000*(tend - tstart):.4f} ms")
