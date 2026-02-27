@@ -11,9 +11,10 @@ jobs:
           AUTHOR="${{ github.actor }}"
           REPO="${{ github.repository }}"
           URL="${{ github.event.head_commit.url }}"
+          BRANCH="${{ github.ref_name }}"
           
-          # Format the message
-          TEXT="🚀 *New update in ${REPO}* by *${AUTHOR}*!%0A%0A📝 Commit: ${COMMIT_MSG}%0A🔗 [View Changes](${URL})"
+          # Format the message (now includes the branch name)
+          TEXT="🚀 *New update in ${REPO}* on branch *${BRANCH}* by *${AUTHOR}*!%0A%0A📝 Commit: ${COMMIT_MSG}%0A🔗 [View Changes](${URL})"
           
           # Send to Telegram's official API
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendMessage" \
