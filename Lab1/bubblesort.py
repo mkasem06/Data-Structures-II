@@ -61,12 +61,3 @@ while True:
             insertionSort(arr.copy())
             tend = time.time()
             print(f"Time taken to sort {elements} elements using insertion sort is {tend - tstart:.4f} seconds")
-
-
-
-
-
-
-
-
-
