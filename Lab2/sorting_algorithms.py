@@ -162,9 +162,9 @@ while elements < 10000:
 arr = [random.randint(1, 999999) for _ in range(elements)]
 
 while True:
-    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\nCtrl + C to exit\nEnter the sorting algorithm you want: "))
+    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n 3. Quick Sort\nCtrl + C to exit\nEnter the sorting algorithm you want: "))
     while choice < 1 or choice > 3:
-        choice = int(input("Your choice must be either 1, 2 or 3\nEnter your choice: "))
+        choice = int(input("Your choice must be either 1, 2, 3 or 4\nEnter your choice: "))
     match choice:
         case 1:
             tstart = time.time()
@@ -181,3 +181,8 @@ while True:
             insertionSort(arr.copy())
             tend = time.time()
             print(f"Time taken to sort {elements} elements using insertion sort is {1000*(tend - tstart):.4f} ms")
+        case 4:
+            tstart = time.time()
+            quickSort(arr.copy())
+            tend = time.time()
+            print(f"Time taken to sort {elements} elements using quick sort is {1000*(tend - tstart):.4f} ms")
