@@ -1,5 +1,27 @@
 import time
 import random
+#Quick Sort Algorithm
+#partiton function
+def partition(arr, low, high):
+    randomIndex = random.randint(low, high)
+    arr[high], arr[randomIndex] = arr[randomIndex], arr[high]
+    pivot = arr[high]
+    i = low
+    for j in range (low, high):
+        if arr[j] <= pivot:
+            arr[j], arr[i] = arr[i], arr[j]
+            i += 1
+    arr[i], arr[high] = arr[high], arr[i]
+    return i
+
+#Quick Sort
+def quickSort(arr, low, high):
+    if low < high:
+        index = partition(arr, low, high)
+        quickSort(arr, low, index - 1)
+        quickSort(arr, index + 1, high)
+
+
 
 # Bubble sort
 def bubbleSort(arr):
