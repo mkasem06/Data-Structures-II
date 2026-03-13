@@ -128,7 +128,6 @@ def mergeSort(arr, left, right):
 
 
 # Heap Sort
-# TODO        
 def heapify(arr,i,n):
     largest = i
     L = 2*i
@@ -170,8 +169,8 @@ while elements < 10000:
 arr = [random.randint(1, 999999) for _ in range(elements)]
 
 while True:
-    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Quick Sort\n5. Find Kth smallest element\n6. Exit\nEnter your choice: "))
-    while choice < 1 or choice > 6:
+    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Quick Sort\n5. Merge Sort\n6. Heap Sort\n7. Hybrid Merge Sort\n8. Find Kth smallest element\n9. Exit\nEnter your choice: "))
+    while choice < 1 or choice > 9:
         choice = int(input("Your choice must between 1 and 6\nEnter your choice: "))
     match choice:
         case 1:
@@ -195,11 +194,28 @@ while True:
             tend = time.time()
             print(f"Time taken to sort {elements} elements using quick sort is {1000*(tend - tstart):.4f} ms")
         case 5:
+            tstart = time.time()
+            mergeSort(arr.copy(), 0, len(arr) - 1)
+            tend = time.time()
+            print(f"Time taken to sort {elements} elements using merge sort is {1000 * (tend - tstart):.4f} ms")
+        case 6:
+            A = to_heap_array(arr.copy())
+            tstart = time.time()
+            heapSort(A)
+            tend = time.time()
+            print(f"Time taken to sort {elements} elements using heap sort is {1000 * (tend - tstart):.4f} ms")
+        case 7:
+            threshold = int(input("Enter threshold: "))
+            temp = arr.copy()
+            tstart = time.time()
+            mergeSortT(temp, 0, len(temp) - 1, threshold)
+            tend = time.time()
+            print(f"Time taken to sort {elements} elements using hybrid merge sort is {1000 * (tend - tstart):.4f} ms")
+        case 8:
             k = int(input("Enter k to find kth smallest element: "))
             while k < 1 or k > elements:
                 k = int(input(f"k must be between 1 and {elements}\nEnter k: "))
             result = kthSmallest(arr.copy(), 0, len(arr) - 1, k)
             print(f"The {k}th smallest element is {result}")
-        case 6:
+        case 9:
             break
-
