@@ -22,6 +22,16 @@ def quickSort(arr, low, high):
         quickSort(arr, low, index - 1)
         quickSort(arr, index + 1, high)
 
+#kth smallest element (task 8)
+def kthSmallest(arr, low, high, k):
+    if low <= high:
+        index = partition(arr, low, high)
+        if index == k - 1:
+            return arr[index]
+        elif k - 1 < index:
+            return kthSmallest(arr, low, index - 1, k)
+        else:
+            return kthSmallest(arr, index + 1, high, k)
 
 # Bubble sort
 def bubbleSort(arr):
@@ -116,9 +126,7 @@ def mergeSort(arr, left, right):
         mergeSort(arr, mid + 1, right)
         merge(arr, left, right)
 
-# Quick Sort
-# TODO
- 
+
 # Heap Sort
 # TODO        
 def heapify(arr,i,n):
@@ -162,9 +170,9 @@ while elements < 10000:
 arr = [random.randint(1, 999999) for _ in range(elements)]
 
 while True:
-    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Quick Sort\nCtrl + C to exit\nEnter the sorting algorithm you want: "))
-    while choice < 1 or choice > 4:
-        choice = int(input("Your choice must be either 1, 2, 3 or 4\nEnter your choice: "))
+    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Quick Sort\n5. Find Kth smallest element\n6. Exit\nEnter your choice: "))
+    while choice < 1 or choice > 6:
+        choice = int(input("Your choice must between 1 and 6\nEnter your choice: "))
     match choice:
         case 1:
             tstart = time.time()
@@ -186,3 +194,12 @@ while True:
             quickSort(arr.copy(), 0, len(arr) - 1)
             tend = time.time()
             print(f"Time taken to sort {elements} elements using quick sort is {1000*(tend - tstart):.4f} ms")
+        case 5:
+            k = int(input("Enter k to find kth smallest element: "))
+            while k < 1 or k > elements:
+                k = int(input(f"k must be between 1 and {elements}\nEnter k: "))
+            result = kthSmallest(arr.copy(), 0, len(arr) - 1, k)
+            print(f"The {k}th smallest element is {result}")
+        case 6:
+            break
+
