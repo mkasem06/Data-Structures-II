@@ -43,7 +43,40 @@ def insertionSort(arr):
  
 # Heap Sort
 # TODO        
-    
+def heapify(arr,i,n):
+    largest = i
+    L = 2*i
+    R =2*i +1
+    if L <= n and arr [largest] < arr[L]:
+        largest = L
+    if R <= n and arr[largest] < arr[R]:
+        largest = R
+
+    if largest !=i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, largest, n)
+
+def buildHeap(arr):
+    n = len(arr) -1
+    for i in range(n//2  , 0, -1):
+        heapify(arr, i, n)
+
+def heapSort(arr):
+    n = len(arr) -1
+    buildHeap(arr)
+    for i in range(n , 1, -1):
+        arr[i], arr[1] = arr[1], arr[i]
+        heapify(arr, 1, i-1)
+
+
+def to_heap_array(lst):
+    return [None] + list(lst)
+ 
+def from_heap_array(A):
+    return A[1:]
+
+
+
 elements = int(input("Enter number of elements: "))
 
 while elements < 10000:
