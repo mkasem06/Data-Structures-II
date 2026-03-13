@@ -1,5 +1,6 @@
 import time
 import random
+
 #Quick Sort Algorithm
 #partiton function
 def partition(arr, low, high):
@@ -20,7 +21,6 @@ def quickSort(arr, low, high):
         index = partition(arr, low, high)
         quickSort(arr, low, index - 1)
         quickSort(arr, index + 1, high)
-
 
 
 # Bubble sort
@@ -162,8 +162,8 @@ while elements < 10000:
 arr = [random.randint(1, 999999) for _ in range(elements)]
 
 while True:
-    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n 3. Quick Sort\nCtrl + C to exit\nEnter the sorting algorithm you want: "))
-    while choice < 1 or choice > 3:
+    choice = int(input("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Quick Sort\nCtrl + C to exit\nEnter the sorting algorithm you want: "))
+    while choice < 1 or choice > 4:
         choice = int(input("Your choice must be either 1, 2, 3 or 4\nEnter your choice: "))
     match choice:
         case 1:
@@ -183,6 +183,6 @@ while True:
             print(f"Time taken to sort {elements} elements using insertion sort is {1000*(tend - tstart):.4f} ms")
         case 4:
             tstart = time.time()
-            quickSort(arr.copy())
+            quickSort(arr.copy(), 0, len(arr) - 1)
             tend = time.time()
             print(f"Time taken to sort {elements} elements using quick sort is {1000*(tend - tstart):.4f} ms")
