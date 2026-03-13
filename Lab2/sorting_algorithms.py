@@ -36,7 +36,63 @@ def insertionSort(arr):
         arr[j + 1] = key
 
 # Merge Sort
-# TODO
+def merge(arr, left, right):
+    middle = (right + left) // 2
+    nL = middle - left + 1
+    nR = right - middle
+
+    L = [0] * nL
+    R = [0] * nR
+
+    for i in range(nL):
+        L[i] = arr[left + i]
+    for j in range(nR):
+        R[j] = arr[middle + 1 + j]
+
+    i = 0 # Index for left Array
+    j = 0 # ,,    ,,  right ,, 
+    k = left 
+
+    while i < nL and j < nR:
+        if L[i] <= R[j]:
+            arr[k] = L[i]
+            i += 1
+        else:
+            arr[k] = R[j]
+            j += 1
+        k += 1
+
+    while i < nL:
+        arr[k] = L[i]
+        i += 1
+        k += 1
+
+    while j < nR:
+        arr[k] = R[j]
+        j += 1
+        k += 1
+
+def mergeSortT(arr, left, right, threshold):
+    currentSize = right - left + 1
+    
+    if currentSize <= threshold:
+        subArray = arr[left : right + 1]
+        selectionSort(subArray)
+        arr[left : right + 1] = subArray
+        return 
+    
+    if left < right:
+        mid = (right + left) // 2
+        mergeSortT(arr, left, mid, threshold)
+        mergeSortT(arr, mid + 1, right, threshold)
+        merge(arr, left, right)
+
+def mergeSort(arr, left, right):
+    if left < right:
+        mid = (right + left) // 2
+        mergeSort(arr, left, mid)
+        mergeSort(arr, mid + 1, right)
+        merge(arr, left, right)
 
 # Quick Sort
 # TODO
