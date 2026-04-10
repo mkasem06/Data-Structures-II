@@ -141,3 +141,42 @@ class RBTree:
                     node.parent.parent.color = 1
                     self.leftRotate(node.parent.parent)
         self.root.color = 0
+
+#UI
+
+tree = RBTree()
+while True:
+    choice = input("1. Load Dictionary\n2. Insert Word\n3. Look-up a Word\n4. Exit\nEnter your choice: ")
+    while choice not in ["1","2","3","4"]:
+        choice = input("Your choice must between 1 and 4\nEnter your choice: ")
+    match choice:
+        case '1':
+            with open("dictionary.txt","r") as f:
+                for line in f:
+                    word = line.strip()
+                    tree.insert(word)
+            print("Dictionary loaded successfully!")
+        case '2':
+            while True:
+                word = input("Enter word you want to insert: ")
+                if tree.searchTree(word) != tree.NIL:
+                    print("ERROR: Word already in the dictionary!")
+                    again = input("Do you want to try again? (y/n): ")
+                    if again.lower() != "y":
+                        break
+                else:
+                    tree.insert(word)
+                    with open("dictionary.txt", "a") as f:
+                        f.write(word + "\n")
+                    print(f"Size: {tree.getSize()}")
+                    print(f"Height: {tree.getHeight()}")
+                    print(f"Black Height: {tree.getBlackHeight()}")
+                    break
+        case '3':
+            word = input("Enter word you want to look for: ")
+            if tree.searchTree(word) != tree.NIL:
+                print("YES")
+            else:
+                print("NO")
+        case '4':
+            break
