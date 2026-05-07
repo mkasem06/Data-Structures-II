@@ -1,3 +1,5 @@
+import heapq
+
 class Graph:
     def __init__(self):
         # We use a dictionary to act as our Adjacency List.
@@ -25,6 +27,36 @@ class Graph:
         """Prints the adjacency list so you can verify the structure."""
         for node, edges in self.graph.items():
             print(f"{node}: {edges}")
+
+def prims(graph, start):
+    visited = set()
+    mst_edges = []
+    total_weight = 0
+
+    # Priority queue entries: (weight, to_node, from_node)
+    pq = [(0, start, None)]
+
+    while pq:
+        weight, node, parent = heapq.heappop(pq)
+
+        # If already visited, skip
+        if node in visited:
+            continue
+
+        visited.add(node)
+
+        # Add edge to MST (skip the very first dummy entry)
+        if parent is not None:
+            mst_edges.append((parent, node, weight))
+            total_weight += weight
+            print(f"  Added edge: {parent} --> {node}  (weight {weight})")
+
+        # Push all unvisited neighbors into the priority queue
+        for neighbor, edge_weight in graph[node]:
+            if neighbor not in visited:
+                heapq.heappush(pq, (edge_weight, neighbor, node))
+
+    return mst_edges, total_weight
 
 # ==========================================
 # MK'S TEST MASTER SETUP (From Assignment Images)
@@ -84,7 +116,9 @@ if __name__ == "__main__":
         mst_graph.add_edge(u, v, weight=w, directed=False)
 
     mst_graph.display()
-    print("\n[Prim's function will run here later]")
-    # Your teammate will write their function and test it like this:
-    # mst_result = prims_algorithm(mst_graph.graph, start_node='a')
-    # print(f"MST Edges: {mst_result}")
+    
+    # --- Running your exact prims function ---
+    print("\n[Running your Prim's function]")
+    mst_result, final_weight = prims(mst_graph.graph, 'a')
+    print(f"Final MST Edges: {mst_result}")
+    print(f"Final Weight: {final_weight}")
