@@ -61,6 +61,32 @@ def prims(graph, start):
 # ==========================================
 # MK'S TEST MASTER SETUP (From Assignment Images)
 # ==========================================
+def topological_sort(graph):
+    from collections import deque
+
+    # Step 1: Count in-degree of every node
+    in_degree = {node: 0 for node in graph}
+    for node in graph:
+        for neighbor, _ in graph[node]:
+            in_degree[neighbor] += 1
+
+    # Step 2: Add all nodes with in-degree 0 to queue
+    queue = deque()
+    for node in in_degree:
+        if in_degree[node] == 0:
+            queue.append(node)
+
+    # Step 3: Process queue
+    result = []
+    while queue:
+        node = queue.popleft()
+        result.append(node)
+        for neighbor, _ in graph[node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    return result
 
 if __name__ == "__main__":
     
@@ -85,7 +111,9 @@ if __name__ == "__main__":
         topo_graph.add_edge(u, v, directed=True)
 
     topo_graph.display()
-    print("\n[Eyad's function will run here later]")
+    result = topological_sort(topo_graph.graph)
+    print(f"Topological Sort: {result}")
+    print(f"Expected:         [7, 6, 5, 4, 3, 2, 1, 0]")
     # Eyad will write his function and test it like this:
     # result = topological_sort(topo_graph.graph)
     # print(f"Expected: 7 6 5 4 3 2 1 0")
